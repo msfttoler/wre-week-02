@@ -51,8 +51,9 @@ not promise a self-review notification or enforced owner approval.
 
 ## Demo navigation
 
-- **Pull requests:** in the original repository, start with the open
-  `[Live demo]` pull request. It will not appear as a PR in a fresh fork.
+- **Pull requests:** in the original repository, start with
+  [Live demo PR #2](https://github.com/msfttoler/wre-week-02/pull/2).
+  It will not appear as a PR in a fresh fork.
 - **Files changed:** identify the delivery threshold and the responsible owner.
 - **Checks:** inspect the failing boundary test, then make the one-line fix.
 - **Conversation:** inspect the merge requirements before and after the fix.
@@ -61,6 +62,42 @@ not promise a self-review notification or enforced owner approval.
 Rehearsal pull requests are labeled in their titles. A successful rehearsal
 belongs to its recorded commit; it is not evidence that a different PR passed.
 This is a real hosted GitHub workflow, not a local model of branch protection.
+
+## Presenter quick start
+
+Allow about 8 minutes for the demonstration, plus time for Actions to finish.
+Use `msfttoler` on GitHub.com for the edit and merge; a read-only account can
+inspect everything but cannot complete the repair. Confirm the avatar/account
+before presenting. The CLI account is separate from the browser account.
+
+1. Open [the live PR's changed file](https://github.com/msfttoler/wre-week-02/pull/2/files).
+   Ask: "What should delivery cost for a $49 order?" Compare the stated $50
+   policy with the proposed `4000`-cent threshold.
+2. Open [the live PR's checks](https://github.com/msfttoler/wre-week-02/pull/2/checks).
+   Expand **Checkout tests > Run checkout tests**. The $49 test reports
+   `AssertionError: 0 != 500`: the app charges nothing instead of $5.
+   Read the failure aloud rather than relying on its color.
+3. Return to **Conversation** and show that the required check blocks merging.
+   [Checkout safety](https://github.com/msfttoler/wre-week-02/rules/27157755)
+   requires a PR and the check, not a second reviewer or owner approval.
+4. In **Files changed**, use the file menu to edit `shipping.py` on
+   `demo/free-shipping`. Change only `>= 4000` to `>= 5000`; keep the useful
+   policy docstring and all tests. Commit to that existing demo branch, not
+   `main`. Ask which test should change from failing to passing.
+5. Wait for **Checkout tests** on the PR's new head to pass. Revisit the merge
+   box and distinguish "checks passed" from "review approved". Merge only if
+   you want to finish the demonstration; merging consumes this prepared PR.
+
+Keep [rehearsal PR #1](https://github.com/msfttoler/wre-week-02/pull/1) as the
+separate corrected example, not as evidence for PR #2. If Actions or the
+network is unavailable, inspect its recorded repair and results and explicitly
+describe them as prior evidence, not a new live run. Do not disable the rule.
+If the live branch is behind `main`, update that branch and wait for its check
+before presenting. Do not reset or force-push shared branches to repeat a demo.
+
+For learner practice, return to [Fork practice](docs/fork-practice.md); leave
+the upstream live PR for the presenter. Use browser zoom as needed, narrate
+file changes and status text, and enable the meeting's live captions.
 
 ## Reuse boundary
 
